@@ -11,7 +11,8 @@ makeCacheMatrix <- function(x = matrix()) {
     ## m is NULL. 
     m <- NULL
     
-    ## set is the function that determines initial matrix for the makeCacheMatrix object. 
+    ## set is the function that determines initial matrix for the makeCacheMatrix "object".
+    ## m assigned as NULL with every setting of a new matrix.
     set <- function(y) {
       x <<- y
       m <<- NULL
@@ -34,8 +35,14 @@ makeCacheMatrix <- function(x = matrix()) {
 
 ## Write a short comment describing this function
 
-cacheSolve <- function(x, ...) {
+cacheSolve <- function(x,ini, ...) {
         ## Return a matrix that is the inverse of 'x'
+  
+  ##If the initial matrix was changed before calling cacheSolve then a new value is assigned to 
+  if (!(identical(ini,x$get()))) {
+    message("Initial matrix has been changed...")
+    x$set(ini)
+  }
   m <- x$getinverse()
   
   ## If the function is called NOT for the first time then m is not null and we get the already saved data 
